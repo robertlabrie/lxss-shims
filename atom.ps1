@@ -7,7 +7,7 @@ by: robert.labrie@gmail.com
 . "$(Split-Path $PSCommandPath -parent)/functions.ps1"  # include shim functions
 
 $un = Get-WindowsUsername
-$atomRoot = '/mnt/c/Users/Rob/AppData/Local/atom'
+$atomRoot = "/mnt/c/Users/$($un)/AppData/Local/atom"
 $atomVersion = ''
 
 # get the latest version of atom
@@ -23,9 +23,9 @@ if ($atomVersion -eq '')
 }
 $atomBin = "$($atomRoot)/$($atomVersion)/atom.exe"
 
-Write-Output $atomBin
-
 $bits = $args
+
+# assume the last array element was the target file name and convert to windows
 $bits[-1] = $args[-1] | ConvertTo-WindowsPath
 
 & $atomBin $bits
