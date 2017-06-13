@@ -14,11 +14,7 @@ function Get-FileSystems()
 
 function Get-WindowsUsername()
 {
-  $username = (/mnt/c/Windows/System32/whoami.exe | Out-String).trim()
-  if ($username -like '*\*') {
-    $bits = $username.split('\')
-    return $bits[1] # we don't want the machine/domain portion
-  }
+  $username = /mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -Command 'Write-Output $ENV:USERNAME'
   return $username
 }
 
