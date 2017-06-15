@@ -1,6 +1,6 @@
 #!/usr/bin/powershell
 <#
-Assumes chocolatey installed version of atom in %USERPROFILE%
+Assumes atom installed in %USERPROFILE%
 by: robert.labrie@gmail.com
 #>
 
@@ -28,4 +28,6 @@ $bits = $args
 # assume the last array element was the target file name and convert to windows
 $bits[-1] = $args[-1] | ConvertTo-WindowsPath
 
-& $atomBin $bits
+# for some reason, sometimes the process doesn't return to the shell so we put
+# timeout out in front to force it
+& /usr/bin/timeout 1 $atomBin $bits
